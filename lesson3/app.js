@@ -65,13 +65,16 @@
     // loader.load('../data/models/tazza/model.obj', function(mesh) {
     //     scene.add(mesh);
     // });
+    // ##TODO Far funzionare il loader, confronto con il codice del prof su github ?
 
 
+    // #esercizio1
 
 
+    // #esercizio2
 
-
-
+    
+    // #esercizio3
 
 
 
