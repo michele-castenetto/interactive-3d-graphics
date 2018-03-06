@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "serve"
+    "start-old": "serve",
+    "start": "node appstart.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +14,7 @@
     "three": "^0.90.0"
   },
   "devDependencies": {
-    "serve": "^6.5.1"
+    "opn": "^5.2.0",
+    "serve": "^6.5.2"
   }
 }
