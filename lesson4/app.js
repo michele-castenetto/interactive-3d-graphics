@@ -71,8 +71,8 @@
     // cylinder.position.set(0, 2, 0);
 
     // le due danno lo stesso risultato perchè nella composizione si segue l'ordine
-    // TRS (translate rotate scale, ordine di composizione tra funzioni quindi letto all'inverso)
-
+    // TRS (translate - rotate - scale, ordine di composizione tra funzioni quindi letto all'inverso)
+    
 
     // Si possono effettuare le operazioni in ordine diverso attribuendo un nodo padre 
     // al cilindro e per esempio effettuando la rotazione su di lui
@@ -95,19 +95,49 @@
     
     // #esercizio disegno fiore
 
+    camera.position.z = 10;
+    camera.position.y = 10;
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 
+    var flower = new THREE.Object3D();
+    scene.add(flower);
 
+    var stamen = new THREE.Mesh(new THREE.SphereGeometry(1.2, 32, 32), new THREE.MeshBasicMaterial({ color: 0x333333 }));
+    flower.add(stamen); 
+
+    var stem = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 20, 32), new THREE.MeshBasicMaterial({color: 0x00ff00}));
+    stem.position.y -= 10; 
+    flower.add(stem);
+
+    var petals = new THREE.Object3D();
+    scene.add(petals);
+
+    var PETAL_NUMBER = 16;
+
+
+    var petal = new THREE.Object3D();
+    var petal_material = new THREE.CylinderGeometry(0.8, 0, 6, 32);
+    var petal_geometry = new THREE.MeshBasicMaterial({color: 0xff5500});
+    var petal_mesh = new THREE.Mesh(petal_material, petal_geometry);
+    petal_mesh.position.x += 3; 
+    petal_mesh.rotation.z = -90 * Math.PI/180; 
+    petal.add(petal_mesh);
+
+    for (var i = 0; i < PETAL_NUMBER; i++) {
+        var p = petal.clone();
+        p.rotation.y = i * 360/PETAL_NUMBER * Math.PI/180;
+        flower.add(p);
+    }
     
+
     var engine = new Engine(function() {
+        flower.rotation.y += 0.01;
 
         stats.update();
         renderer.render( scene, camera );
     });
-
     engine.startRenderLoop();
 
-
-    
 
 })();
