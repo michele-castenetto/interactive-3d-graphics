@@ -191,11 +191,8 @@
     
 
 
-    // #esercizio3
-
-
+    // #esercizio3 geometria sfera
     
-
     var sphereGeometryGenerationStep = function(geometry) {
 
         var step_geometry = new THREE.Geometry();
