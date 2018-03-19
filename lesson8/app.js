@@ -91,44 +91,26 @@
 
 
     // #esercizio1 rotazioni con matrici
-    
-
-
-    
-    show_esecizio1 = function() {
-        camera.position.set(3,4,6);
-        camera.lookAt( new THREE.Vector3(0,0,0));
-    
-        var cube = new THREE.Mesh( 
-            new THREE.BoxGeometry(3,3,3),
-            new THREE.MeshBasicMaterial( { color: 0xaaaaaa, transparent: true, opacity:0.4 } )
-        );
-        scene.add(cube);
-    
-        
-        var cylinder_geometry = new THREE.CylinderGeometry(0.5,0.5,5);
-        var cylinder_material = new THREE.MeshBasicMaterial( { color: 0xaaaaff });
-        var cylinder = new THREE.Mesh(cylinder_geometry, cylinder_material);
-        cylinder.matrix.makeRotationAxis( new THREE.Vector3(1,0,1).normalize(), 45*Math.PI/180);
-        cylinder.matrixAutoUpdate = false;
-        scene.add( cylinder );
-    
-        Coordinates.drawAllAxes({scene: scene});
-
-    };
-    show_esecizio1();
-
-    var engine = new Engine(function() {
-        stats.update();
-        controls.update();
-        renderer.render( scene, camera );
-    });
-    engine.startRenderLoop();
+    // vedere lezione a 1:11:22
 
 
 
 
     // #esercizio2 sistema solare
+
+    camera.position.z = 30;
+    camera.position.y = 10;
+    camera.lookAt(0 ,0 ,0);
+    
+
+    // var plane_geometry = new THREE.PlaneGeometry(40, 40, 20, 20 );
+    // var plane_material = new THREE.MeshBasicMaterial( {wireframe:true, color: 0x0000ff, side: THREE.DoubleSide} );
+    // var plane = new THREE.Mesh(plane_geometry, plane_material);
+    // plane.rotation.x = THREE.Math.degToRad(90);
+    // scene.add(plane);
+    scene.background = new THREE.Color( 0x114466 );
+
+
 
 
     var Planet = (function() {
@@ -215,7 +197,12 @@
         return Planet;
     })();
 
+
+
+
     var DAY_TIME = 100;
+
+
     var planets = [];
 
     var sun = new Planet({
@@ -229,6 +216,8 @@
         color: 0xffff00
     });
     planets.push(sun);  
+
+    
     var mercury = new Planet({
         id: 'mercury',
         father_planet: scene,
@@ -276,6 +265,7 @@
         color: 0x555555
     });
     planets.push(moon);
+    
     var mars = new Planet({
         id: 'mars',
         father_planet: scene,
@@ -303,42 +293,132 @@
 
 
 
+
     create_solarSystem = function() {
-
-        camera.position.z = 30;
-        camera.position.y = 10;
-        camera.lookAt(0 ,0 ,0);
-
-        // var plane_geometry = new THREE.PlaneGeometry(40, 40, 20, 20 );
-        // var plane_material = new THREE.MeshBasicMaterial( {wireframe:true, color: 0x0000ff, side: THREE.DoubleSide} );
-        // var plane = new THREE.Mesh(plane_geometry, plane_material);
-        // plane.rotation.x = THREE.Math.degToRad(90);
-        // scene.add(plane);
-
-        scene.background = new THREE.Color( 0x114466 );
         planets.forEach(function(p) {
             p.create();
         });
     };
+    create_solarSystem();
+
     update_solarSystem = function() {
         planets.forEach(function(p) {
             p.update();
         });
     };
 
+    
 
 
-    // #avvio render esercizio 2
-    // create_solarSystem();    
-    // var engine = new Engine(function() {
-    //     update_solarSystem();
-    //     stats.update();
-    //     controls.update();
-    //     renderer.render( scene, camera );
-    // });
-    // engine.startRenderLoop();
+    
 
 
+
+    // ##OLD
+
+    // var sun = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true }));
+    // scene.add(sun);
+
+    // var sun_rotation_matrix = new THREE.Matrix4();
+    // var sun_angle_rot = 0;
+    // var update_sun = function() {
+    //     sun_angle_rot += 0.01;
+    //     sun_rotation_matrix.makeRotationAxis(new THREE.Vector3(0 ,1, 0), sun_angle_rot);
+    //     sun.matrix = sun_rotation_matrix.multiply( (new THREE.Matrix4()).makeScale(3, 3, 3) );
+    //     sun.matrixAutoUpdate = false;
+    // }; 
+
+    
+
+    // var mercury = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0xff4400, wireframe: true }));
+    // scene.add(mercury);
+    // mercury_orbit = orbit.clone();
+    // mercury_orbit.scale.set(SUN_MERCURY_DISTANCE, SUN_MERCURY_DISTANCE, SUN_MERCURY_DISTANCE);
+    // scene.add(mercury_orbit);
+
+    // var mercury_position_matrix = new THREE.Matrix4();
+    // var mercury_rotation_matrix = new THREE.Matrix4();
+    // var mercury_angle_rev = THREE.Math.degToRad(-30);
+    // var mercury_angle_rot = 0;
+    // var update_mercury = function() {
+    //     mercury_angle_rev += 0.002;
+    //     mercury_angle_rot += 0.01;
+    //     mercury_position_matrix.makeTranslation(SUN_MERCURY_DISTANCE * Math.cos(mercury_angle_rev), 0, SUN_MERCURY_DISTANCE * Math.sin(mercury_angle_rev));
+    //     mercury_rotation_matrix.makeRotationAxis(new THREE.Vector3(0 ,1, 0), mercury_angle_rot);
+    //     mercury.matrix = mercury_position_matrix.multiply(mercury_rotation_matrix).multiply( (new THREE.Matrix4()).makeScale(0.6, 0.6, 0.6) );
+    //     mercury.matrixAutoUpdate = false;
+    // }; 
+
+
+
+    // var earth = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0x3cb371, wireframe: true }));
+    // scene.add(earth);
+    // var earth_axis = new THREE.Mesh ( new THREE.CylinderGeometry(0.02, 0.02, 2.5 ), new THREE.MeshBasicMaterial({color: 0xf0f0f0}) );
+    // earth.add(earth_axis);
+    // earth_orbit = orbit.clone();
+    // earth_orbit.scale.set(SUN_EARTH_DISTANCE, SUN_EARTH_DISTANCE, SUN_EARTH_DISTANCE);
+    // scene.add(earth_orbit);
+
+    // var earth_position_matrix = new THREE.Matrix4();
+    // var earth_rotation_matrix = new THREE.Matrix4();
+    // var earth_rotation2_matrix = new THREE.Matrix4();
+    // earth_rotation2_matrix.makeRotationAxis(new THREE.Vector3(0, 0, 1), THREE.Math.degToRad(12));
+    // var earth_angle_rev = 0;
+    // var earth_angle_rot = 0;
+    // var update_earth = function() {
+    //     earth_angle_rev += 0.001;
+    //     earth_angle_rot += 0.01;
+    //     earth_position_matrix.makeTranslation(SUN_EARTH_DISTANCE * Math.cos(earth_angle_rev), 0, SUN_EARTH_DISTANCE * Math.sin(earth_angle_rev));
+    //     earth_rotation_matrix.makeRotationAxis(new THREE.Vector3(0 ,1, 0), earth_angle_rot);
+    //     earth.matrix = earth_position_matrix.multiply(earth_rotation2_matrix).multiply(earth_rotation_matrix);
+    //     earth.matrixAutoUpdate = false;
+    // }; 
+
+
+
+    // var moon = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0x555555, wireframe: true }));
+    // earth.add(moon);
+    // moon_orbit = orbit.clone();
+    // moon_orbit.scale.set(EARTH_MOON_DISTANCE, EARTH_MOON_DISTANCE, EARTH_MOON_DISTANCE);
+    // earth.add(moon_orbit);
+
+    // var moon_position_matrix = new THREE.Matrix4();
+    // var moon_rotation_matrix = new THREE.Matrix4();
+    // var moon_angle_rev = 0;
+    // var update_moon = function() {
+    //     moon_angle_rev += 0.001;
+    //     moon_position_matrix.makeTranslation(EARTH_MOON_DISTANCE * Math.cos(moon_angle_rev), 0, EARTH_MOON_DISTANCE * Math.sin(moon_angle_rev));
+    //     // moon_rotation_matrix.makeRotationAxis(new THREE.Vector3(0 ,1, 0), moon_angle_rev);
+    //     moon.matrix = moon_position_matrix.multiply( (new THREE.Matrix4()).makeScale(0.2, 0.2, 0.2) );
+    //     moon.matrixAutoUpdate = false;
+    // }; 
+
+
+    // update_solarSystem = function() {
+    //     update_sun();
+    //     update_earth();
+    //     update_moon();
+    //     update_mercury();
+    // };
+
+
+
+
+
+
+    
+
+
+
+
+
+    var engine = new Engine(function() {
+        update_solarSystem();
+        stats.update();
+        controls.update();
+        renderer.render( scene, camera );
+    });
+    engine.startRenderLoop();
 
 
 })();

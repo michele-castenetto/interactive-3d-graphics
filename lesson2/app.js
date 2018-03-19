@@ -2,7 +2,9 @@
     
 
     var scene = new THREE.Scene();
-    var renderer = new THREE.WebGLRenderer();
+    // var renderer = new THREE.WebGLRenderer();
+    // Per attivare l'antialiasing
+    var renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild( renderer.domElement);
 
