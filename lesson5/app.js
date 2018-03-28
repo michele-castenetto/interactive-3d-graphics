@@ -114,16 +114,21 @@
         scene.add( cylinder );
     
         Coordinates.drawAllAxes({scene: scene});
+        Coordinates.drawGrid({scene: scene});
+        // Coordinates.drawGround({scene: scene});
 
     };
-    show_esecizio1();
 
-    var engine = new Engine(function() {
-        stats.update();
-        controls.update();
-        renderer.render( scene, camera );
-    });
-    engine.startRenderLoop();
+
+
+    // avvio esercizio1
+    // show_esecizio1();
+    // var engine = new Engine(function() {
+    //     stats.update();
+    //     controls.update();
+    //     renderer.render( scene, camera );
+    // });
+    // engine.startRenderLoop();
 
 
 
@@ -218,6 +223,13 @@
     var DAY_TIME = 100;
     var planets = [];
 
+
+    // ##TODO ampliare con oggetto orbita con semiasse maggiore minore e angolo di inclinazione
+    // ##TODO saturno con anelli, e satelliti di Giove
+    // ##TODO provare a impostare parametri di tempi di rotazione e rivoluzione reali dei vari pianeti
+
+
+    // ##TODO!! Errore se rev_radius = 0, capire come gestirlo
     var sun = new Planet({
         id: 'sun',
         father_planet: scene,
@@ -329,14 +341,14 @@
 
 
     // #avvio render esercizio 2
-    // create_solarSystem();    
-    // var engine = new Engine(function() {
-    //     update_solarSystem();
-    //     stats.update();
-    //     controls.update();
-    //     renderer.render( scene, camera );
-    // });
-    // engine.startRenderLoop();
+    create_solarSystem();    
+    var engine = new Engine(function() {
+        update_solarSystem();
+        stats.update();
+        controls.update();
+        renderer.render( scene, camera );
+    });
+    engine.startRenderLoop();
 
 
 

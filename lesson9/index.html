@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Esempio 1 </title>
+    <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+    
+
+
+
+
+    <script type="text/x-glsl" id="s_vertex_1">
+        uniform vec3 materialColor;
+        varying vec3 vColor;
+        void main() {
+            // transforms the vertex from object space to clip space coords
+            gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+            vColor = materialColor;
+        }
+    </script>
+    <script type="text/x-glsl" id="s_fragment_1">
+        varying vec3 vColor;
+        void main() {
+            gl_FragColor = vec4(vColor, 1.0);
+        }
+    </script>
+
+
+
+    <script type="text/x-glsl" id="s_vertex_2">
+        attribute float displacement;
+        void main() {
+            // displace the vertex along the normal
+            vec3 newPosition = position + normal * displacement;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition,1.0);
+        }
+    </script>
+
+    <script type="text/x-glsl" id="s_fragment_2">
+        void main() {
+            gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);
+        }
+    </script>
+
+
+
+
+    <script type="text/x-glsl" id="s_vertex_3">
+        attribute float displacement;
+        uniform float amplitude;
+        varying vec3 vNormal; 
+        void main() {
+            vec3 newPosition = position + normal * amplitude * displacement;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition,1.0);
+            vNormal = normal;
+        }
+    </script>
+
+    <script type="text/x-glsl" id="s_fragment_3">
+        varying vec3 vNormal; 
+        void main() {
+            // gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);
+            gl_FragColor = vec4(vNormal, 1.0);
+        }
+    </script>
+
+
+
+
+    <script type="text/x-glsl" id="s_vertex_4">
+        attribute float displacement;
+        uniform float amplitude;
+        varying vec3 vNormal; 
+        void main() {
+            // vec3 newPosition = position + normal * amplitude * displacement;
+            // gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition,1.0);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            vNormal = normal;
+        }
+    </script>
+
+    <script type="text/x-glsl" id="s_fragment_4">
+        varying vec3 vNormal;
+        void main() {
+            // gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);
+            float v_color = dot(vNormal, normalize(vec3(50, 50, 50)));  
+            gl_FragColor = vec4(v_color, v_color, v_color, 1.0);
+        }
+    </script>
+
+
+
+
+
+
+    
+
+    <script src="../libs/three.min.js"></script>
+    <script src="../libs/threejs_OBJLoader.js"></script>
+    <script src="../libs/threejs_stats.min.js"></script>
+    <script src="../libs/threejs_OrbitControls.js"></script>
+    <script src="../libs/threejs_Coordinates.js"></script>
+    <script src="../libs/engine.js"></script>
+    <script src="./perlin.js"></script>
+    <script src="./app.js"></script>
+    
+</body>
+</html>
